@@ -1,0 +1,69 @@
+Video Streaming / a website where you can watch shows and videos / 11
+https://www.youtube.com
+https://www.netflix.com/
+https://www.disneyplus.com/
+https://www.hulu.com/
+https://www.hulu.com/
+https://www.floatplane.com/
+https://www.crunchyroll.com
+https://www.funimation.com/
+https://www.vrv.co/
+https://www.hbomax.com/
+https://www.shudder.com/
+News / a site where you can read or watch news / 8
+https://www.bbc.com
+https://www.cnn.com/
+https://www.nyt.com/
+https://www.foxnews.com/
+https://www.washingtonpost.com/
+https://www.columbian.com/
+https://www.kgw.com/
+https://www.koin.com/
+Music / places to stream and download music / 5
+https://www.spotify.com/
+https://www.pandora.com/
+https://music.youtube.com/
+https://music.amazon.com/
+https://www.siriusxm.com/
+Social Media / social websites for sharing blogs, photos, and videos / 4
+https://www.facebook.com/
+https://www.instagram.com/
+https://www.twitter.com/
+https://www.tiktok.com/
+Groceries / websites for general grocery shopping / 6
+https://www.fredmeyer.com/
+www.newseasonsmarket.com
+https://www.wincofoods.com/
+https://www.costco.com/
+https://groceryoutlet.com/
+https://www.albertsons.com
+Online Shopping / online shops or retailers of goods and services / 6
+https://www.amazon.com
+https://www.ebay.com/
+https://www.craigslist.com/
+https://www.depop.com/
+https://www.mercari.com/
+https://www.hlj.com/
+World of Warcraft / an online multiplayer game made by Blizzard entertainment / 3
+http://www.worldofwarcraft.com
+http://www.wowhead.com
+https://us.shop.battle.net/en-us/family/world-of-warcraft
+Service Utilities / service provers for home utilities / 6
+https://my.xfinity.com/
+https://portlandgeneral.com/
+https://www.clarkpublicutilities.com/
+https://get.ziplyfiber.com/
+https://www.centurylink.com/
+http://wmnorthwest.com/portland/
+Cellular Provider / cellular service providers that provide mobile data services / 7
+https://fi.google.com/
+https://www.verizon.com/
+https://www.t-mobile.com/
+https://www.mintmobile.com/
+https://www.att.com/
+https://www.boostmobile.com/
+https://www.xfinity.com/mobile/
+Gaming Websites / websites that allow people to buy and download games / 3
+www.epicgames.com/
+https://store.steampowered.com/
+https://www.riotgames.com/en
