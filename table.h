@@ -47,4 +47,5 @@ private:
   //task 3: hash functions (each is different)        
   int hash_one(char* key);
   int hash_two(char* key);
+  node** table;
 };
