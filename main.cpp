@@ -7,7 +7,7 @@
 #include <iostream>
 #include <cstring>
 #include "table.h"
-#define SIZE 101
+#define SIZE 5
 #define LINK_LEN 180
 using namespace std;
 
@@ -16,7 +16,7 @@ void print_error_messages(int success, const char function_name[]);
 
 int main(){
   int success = 0;
-  t_node** table = new hash_table(SIZE);
+  hash_table* table = new hash_table(SIZE);
   char input[20];
   char term[40];
   char link[LINK_LEN];
@@ -55,7 +55,7 @@ int main(){
       cin.get();
 
       //make array of size amount
-      char links = new char[amount][LINK_LEN];
+      char** links = new char*[amount * LINK_LEN];
       for(int i = 0; i < amount; i++){ //populate links array
 	cout << "Enter your link: " << endl;
 	cout << "> ";

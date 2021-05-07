@@ -17,7 +17,10 @@
    new table using the 'new' keyword.*/
 hash_table::hash_table(int size){
   table_size = size;
+
+  //set all indices to null
   for(int i = 0; i < table_size; i++){
+    std::cout << "i: " << i << std::endl;  
     table[i] = NULL;
   }
 }
@@ -101,19 +104,19 @@ int hash_table::add(char* term, char* description, int amount, char** links){
   new_node->description = new char[strlen(description) + 1];
   strcpy(new_node->description, description);
 
-  new_node->links = new char[amount][LINK_LEN];
+  new_node->links = new char*[amount * LINK_LEN];
   for(int i = 0; i < amount; i++){
     strcpy(new_node->links[i], links[i]);
   }
 
   //if the index is null, insert the new node there
-  if(!hash_table[index]){
-    hash_table[index] = new_node;
+  if(!table[index]){
+    table[index] = new_node;
     return 1;
   }
 
   //if the index is not null, chain it on
-  t_node* traverse = hash_table[index]->term_ptr;
+  t_node* traverse = table[index];
   while(traverse->next != NULL){
     traverse = traverse->next;
   }
@@ -129,8 +132,8 @@ int hash_table::display(char* key){
   t_node* current = NULL;
   
   for(int i = 0; i < table_size; i++){
-    if(hash_table[i] != NULL){ //if there is something there
-      current = hash_table[i];
+    if(table[i] != NULL){ //if there is something there
+      current = table[i];
 
       //if you find a match with the first term, print it out
       if(strcmp(current->name, key) == 0){
