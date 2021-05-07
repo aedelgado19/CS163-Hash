@@ -2,10 +2,11 @@
    Class: CS 163 Spring 2021
    main.cpp acts as a testing site for the table ADT
 
-   Last updated: May 2
+   Last updated: May 7
  */
 #include <iostream>
 #include <cstring>
+#include "table.h"
 using namespace std;
 
 int main(){

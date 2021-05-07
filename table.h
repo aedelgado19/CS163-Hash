@@ -3,32 +3,44 @@
    table.cpp contains all function prototypes
    to create a hash table ADT
 
-   Last updated May 2                                 
- */
+   Last updated May 7
+*/
 #include <iostream>
 
-struct node {
-  char* term;
+/* a struct to hold term nodes.
+   contains a name, description, and links. 
+   the array index points to the head t_node in a chain */
+struct t_node {
+  char* name;
   char* description;
   char** links;
+  t_node* next;
+};
+
+/* a struct for each array node. it contains
+   its index (a product of the hash function)
+   and a pointer of type t_node to point to its chain */
+struct a_node {
+  int index;
+  t_node* term_ptr;
 };
 
 //all int return types return 1 for success and 0 for failure
-class table {
+class hash_table {
 public:
-  //task 1: Constructor (takes in argument for size)  
-  table(int size);
+  //task 1: Constructor (takes in argument for size)
+  hash_table(int size);
 
-  //task 2: Destructor                                
-  ~table();
+  //task 2: Destructor
+  ~hash_table();
 
-  //task 4: add a term with a list of website links 
+  //task 4: add a term with a list of website links
   int add(char* term, char* description, char** links);
 
-  //task 5: display the information for a matching key   
+  //task 5: display the information for a matching key
   int display(char* key);
 
-  //task 6: load info from an external data file 
+  //task 6: load info from an external data file
   int load(char* file_name);
 
   //task 7: add a new website link to an existing term
@@ -40,12 +52,13 @@ public:
   //task 9: retrieve info about a matching term       
   int retrieve(char* term);
 
-  //task 10: remove all that contain a specific link  
+  //task 10: remove all that contain a specific link
   int remove_by_link(char* link);
 
 private:
-  //task 3: hash functions (each is different)        
+  //task 3: hash functions (each is different)
   int hash_one(char* key);
   int hash_two(char* key);
-  node** table;
+  a_node** table;
+  int table_size;
 };
