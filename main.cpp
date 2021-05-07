@@ -15,7 +15,7 @@ void print_error_messages(int success, const char function_name[]);
 
 int main(){
   int success = 0;
-  a_node** table = new hash_table(SIZE);
+  t_node** table = new hash_table(SIZE);
   char input[20];
   char term[40];
   char link[180];
@@ -62,7 +62,7 @@ int main(){
 	cin.get();
 	strcpy(links[i], link);
       }
-      success = table->add(term, description, links);
+      success = table->add(term, description, amount, links);
       print_error_messages(success, "add");
     }
     

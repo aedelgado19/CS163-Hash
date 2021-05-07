@@ -83,14 +83,14 @@ int hash_table::hash_two(char* key){
 }
 
 /* a function to add a term with a list of website links.
-   here, the function is provided three arguments from main:
-   the term, its description, and its links. This function will
-   create a new node to store these items (with the passed in 
-   arguments as part of the 'term' structure of a node), and 
-   run its term through the hash function to retrieve an index.
-   The node is inserted at that index, and chained onto the list
+   here, the function is provided four arguments from main:
+   the term, its description, amount of links, and the array of links. 
+   This function will create a new node to store these items
+   (with the passed in arguments as part of the 'term' structure 
+   of a node), and run its term through the hash function to retrieve
+   an index. The node is inserted at that index, and chained onto the list
    if there is a collision.*/
-int hash_table::add(char* term, char* description, char** links){
+int hash_table::add(char* term, char* description, int amount, char** links){
   int index = hash_two(term);
 
   //make the new term node
@@ -100,10 +100,10 @@ int hash_table::add(char* term, char* description, char** links){
   new_node->description = new char[strlen(description) + 1];
   strcpy(new_node->description, description);
 
-  /* new_node->links = new char*[150];
-  for(int i = 0; i < links.size(); i++){
+  new_node->links = new char[amount];
+  for(int i = 0; i < amount; i++){
     strcpy(new_node->links[i], links[i]);
-    }*/
+  }
 
   //if the index is null, insert the new node there
   if(!hash_table[index]){
@@ -149,7 +149,7 @@ int hash_table::display(char* key){
 	  std::cout << "term: " << current->name << std::endl;
 	  std::cout << "description: " << current->description << std::endl;
 	  std::cout << "links: " << std::endl;
-	  for(int j = 0; j < (current->sizeof(links)/sizeof(current->links[0])); j++){
+	  for(int j = 0; j < (sizeof(current->links)/sizeof(current->links[0])); j++){
 	    std::cout << current->links[j] << std::endl;
 	  }
 	  return 1;

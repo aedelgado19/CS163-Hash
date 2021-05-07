@@ -27,7 +27,7 @@ public:
   ~hash_table();
 
   //task 4: add a term with a list of website links
-  int add(char* term, char* description, char** links);
+  int add(char* term, char* description, int amount, char** links);
 
   //task 5: display the information for a matching key
   int display(char* key);
