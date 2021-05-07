@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cmath>
 #include "table.h"
+#define LINK_LEN 180
 
 /* The constructor initializes the table size 
    and initializes every index in the table to null. 
@@ -100,7 +101,7 @@ int hash_table::add(char* term, char* description, int amount, char** links){
   new_node->description = new char[strlen(description) + 1];
   strcpy(new_node->description, description);
 
-  new_node->links = new char[amount];
+  new_node->links = new char[amount][LINK_LEN];
   for(int i = 0; i < amount; i++){
     strcpy(new_node->links[i], links[i]);
   }
