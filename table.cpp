@@ -16,12 +16,12 @@
    It is called whenever the user creates a 
    new table using the 'new' keyword.*/
 hash_table::hash_table(int size){
+  table = new node*[size];
   table_size = size;
-
   //set all indices to null
   for(int i = 0; i < table_size; i++){
-    std::cout << "i: " << i << std::endl;  
     table[i] = new node;
+    table[i] = NULL;
   }
 }
 
@@ -129,6 +129,8 @@ int hash_table::add(char* term, char* description, int amount, char** links){
    this function traverses each chain in the array to find the key.
    Once it is found, it displays the description and the links associated. */
 int hash_table::display(char* key){
+  if(!table) return 0;
+  
   node* current = NULL;
   
   for(int i = 0; i < table_size; i++){

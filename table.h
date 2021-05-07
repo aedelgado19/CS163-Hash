@@ -21,7 +21,7 @@ struct node {
 class hash_table {
 public:
   //task 1: Constructor (takes in argument for size)
-  hash_table(int size);
+  hash_table(int size = 5);
 
   //task 2: Destructor
   ~hash_table();

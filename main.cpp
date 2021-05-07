@@ -30,6 +30,7 @@ int main(){
     cout << "Valid commands (for submission 2) are: " << endl;
     cout << "add - add a new term, its description, and its links" << endl;
     cout << "search - display the information for a term" << endl;
+    cout << " " << endl;
     cout << "> ";
     cin.get(input, 20);
     cin.get();
@@ -88,7 +89,7 @@ void print_error_messages(int success, const char function_name[]){
       cout << " " << endl;
     }
   } else {
-    if(strcmp(function_name, "display") == 0){
+    if(strcmp(function_name, "search") == 0){
       cout << "Nothing to display for that term." << endl;
       cout << " " << endl;
     }
