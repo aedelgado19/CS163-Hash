@@ -74,6 +74,7 @@ int hash_table::hash_one(char* key){
    Finally, it is modded by the size of the table to keep the
    produced index within the range of the table.*/
 int hash_table::hash_two(char* key){
+  std::cout << "in hash. " << std::endl;
   int to_return = 0;
 
   //square each letter and add results together
@@ -83,7 +84,8 @@ int hash_table::hash_two(char* key){
 
   //mod it by size
   to_return = to_return % table_size;
-  return 0;
+  std::cout << "returning: " << to_return << std::endl;
+  return to_return;
 }
 
 /* a function to add a term with a list of website links.
@@ -96,30 +98,35 @@ int hash_table::hash_two(char* key){
    if there is a collision.*/
 int hash_table::add(char* term, char* description, int amount, char** links){
   int index = hash_two(term);
-
+  std::cout << "I got: " << index << std::endl;
   //make the new term node
   node* new_node = new node;
   new_node->name = new char[strlen(description) + 1];
   strcpy(new_node->name, term);
   new_node->description = new char[strlen(description) + 1];
   strcpy(new_node->description, description);
-
+  std::cout << "a " << std::endl;
+  //copy over link array
   new_node->links = new char*[amount * LINK_LEN];
   for(int i = 0; i < amount; i++){
     strcpy(new_node->links[i], links[i]);
   }
-
+  std::cout << "b " << std::endl;
   //if the index is null, insert the new node there
   if(!table[index]){
+    std::cout << "c " << std::endl;
     table[index] = new_node;
+    new_node->next = NULL;
     return 1;
   }
 
+  std::cout << "d " << std::endl;
   //if the index is not null, chain it on
   node* traverse = table[index];
   while(traverse->next != NULL){
     traverse = traverse->next;
   }
+  std::cout << "e " << std::endl;
   traverse->next = new_node;
   new_node->next = NULL;
   return 1;
