@@ -17,14 +17,6 @@ struct t_node {
   t_node* next;
 };
 
-/* a struct for each array node. it contains
-   its index (a product of the hash function)
-   and a pointer of type t_node to point to its chain */
-struct a_node {
-  int index;
-  t_node* term_ptr;
-};
-
 //all int return types return 1 for success and 0 for failure
 class hash_table {
 public:
@@ -59,6 +51,6 @@ private:
   //task 3: hash functions (each is different)
   int hash_one(char* key);
   int hash_two(char* key);
-  a_node** table;
+  t_node** table;
   int table_size;
 };

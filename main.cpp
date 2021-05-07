@@ -9,6 +9,12 @@
 #include "table.h"
 using namespace std;
 
+void print_error_messages(int success, const char function_name[]);
+
 int main(){
+  int success = 0;
+
+  cout << " " << endl;
+  //  a_node** table = new hash_table(size);
 
 }

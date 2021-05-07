@@ -18,7 +18,6 @@ hash_table::hash_table(int size){
   table_size = size;
   for(int i = 0; i < table_size; i++){
     table[i] = NULL;
-    table[i]->term_ptr = NULL;
   }
 }
 
@@ -32,9 +31,9 @@ hash_table::~hash_table(){
   t_node* current = NULL;
   
   for(int i = 0; i < table_size; i++){ //walk through array
-    current = table[i]->term_ptr;
+    current = table[i];
     while(current != NULL){ //walk through chain
-      t_node* hold = table[i]->term_ptr->next;
+      t_node* hold = table[i]->next;
       delete current;
       current = hold;
     }
@@ -92,17 +91,73 @@ int hash_table::hash_two(char* key){
    The node is inserted at that index, and chained onto the list
    if there is a collision.*/
 int hash_table::add(char* term, char* description, char** links){
+  int index = hash_two(term);
 
-  return 0;
+  //make the new term node
+  t_node* new_node = new t_node;
+  new_node->name = new char[strlen(description) + 1];
+  strcpy(new_node->name, term);
+  new_node->description = new char[strlen(description) + 1];
+  strcpy(new_node->description, description);
+
+  /* new_node->links = new char*[150];
+  for(int i = 0; i < links.size(); i++){
+    strcpy(new_node->links[i], links[i]);
+    }*/
+
+  //if the index is null, insert the new node there
+  if(!hash_table[index]){
+    hash_table[index] = new_node;
+    return 1;
+  }
+
+  //if the index is not null, chain it on
+  t_node* traverse = hash_table[index]->term_ptr;
+  while(traverse->next != NULL){
+    traverse = traverse->next;
+  }
+  traverse->next = new_node;
+  new_node->next = NULL;
+  return 1;
 }
 
 /* a function to display the information for a matching key.
-   this function stops at each populated index in the array and
-   traverses its linear linked list to display the chain (if it exists).
-   It will return 0 to indicate failure if the table does not exist.*/
+   this function traverses each chain in the array to find the key.
+   Once it is found, it displays the description and the links associated. */
 int hash_table::display(char* key){
+  t_node* current = NULL;
+  
+  for(int i = 0; i < table_size; i++){
+    if(hash_table[i] != NULL){ //if there is something there
+      current = hash_table[i];
 
-  return 0;
+      //if you find a match with the first term, print it out
+      if(strcmp(current->name, key) == 0){
+	std::cout << "term: " << current->name << std::endl;
+	std::cout << "description: " << current->description << std::endl;
+	std::cout << "links: " << std::endl;
+	for(int j = 0; j < (sizeof(current->links)/sizeof(current->links[0])); j++){
+	  std::cout << current->links[j] << std::endl;
+	}
+	return 1;
+      }
+
+      //otherwise traverse the chain
+      while(current->next != NULL){
+	current = current->next;
+	if(strcmp(current->name, key) == 0){ //if you find a match
+	  std::cout << "term: " << current->name << std::endl;
+	  std::cout << "description: " << current->description << std::endl;
+	  std::cout << "links: " << std::endl;
+	  for(int j = 0; j < (current->sizeof(links)/sizeof(current->links[0])); j++){
+	    std::cout << current->links[j] << std::endl;
+	  }
+	  return 1;
+	}
+      }
+    }
+  }
+  return 0; //did not find any matches
 }
 
 /* load information from an external data file */
