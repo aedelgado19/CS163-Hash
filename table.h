@@ -9,12 +9,12 @@
 
 /* a struct to hold term nodes.
    contains a name, description, and links. 
-   the array index points to the head t_node in a chain */
-struct t_node {
+   the array index points to the head node in a chain */
+struct node {
   char* name;
   char* description;
   char** links;
-  t_node* next;
+  node* next;
 };
 
 //all int return types return 1 for success and 0 for failure
@@ -51,6 +51,6 @@ private:
   //task 3: hash functions (each is different)
   int hash_one(char* key);
   int hash_two(char* key);
-  t_node** table;
+  node** table;
   int table_size;
 };

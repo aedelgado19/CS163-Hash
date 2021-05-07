@@ -21,7 +21,7 @@ hash_table::hash_table(int size){
   //set all indices to null
   for(int i = 0; i < table_size; i++){
     std::cout << "i: " << i << std::endl;  
-    table[i] = NULL;
+    table[i] = new node;
   }
 }
 
@@ -32,12 +32,12 @@ hash_table::hash_table(int size){
    the table back to null.
    */
 hash_table::~hash_table(){
-  t_node* current = NULL;
+  node* current = NULL;
   
   for(int i = 0; i < table_size; i++){ //walk through array
     current = table[i];
     while(current != NULL){ //walk through chain
-      t_node* hold = table[i]->next;
+      node* hold = table[i]->next;
       delete current;
       current = hold;
     }
@@ -98,7 +98,7 @@ int hash_table::add(char* term, char* description, int amount, char** links){
   int index = hash_two(term);
 
   //make the new term node
-  t_node* new_node = new t_node;
+  node* new_node = new node;
   new_node->name = new char[strlen(description) + 1];
   strcpy(new_node->name, term);
   new_node->description = new char[strlen(description) + 1];
@@ -116,7 +116,7 @@ int hash_table::add(char* term, char* description, int amount, char** links){
   }
 
   //if the index is not null, chain it on
-  t_node* traverse = table[index];
+  node* traverse = table[index];
   while(traverse->next != NULL){
     traverse = traverse->next;
   }
@@ -129,7 +129,7 @@ int hash_table::add(char* term, char* description, int amount, char** links){
    this function traverses each chain in the array to find the key.
    Once it is found, it displays the description and the links associated. */
 int hash_table::display(char* key){
-  t_node* current = NULL;
+  node* current = NULL;
   
   for(int i = 0; i < table_size; i++){
     if(table[i] != NULL){ //if there is something there
