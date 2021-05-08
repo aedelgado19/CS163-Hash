@@ -56,12 +56,13 @@ int main(){
       cin.get();
 
       //make array of size amount
-      char** links = new char*[amount * LINK_LEN];
+      char* links[amount];
       for(int i = 0; i < amount; i++){ //populate links array
 	cout << "Enter your link: " << endl;
 	cout << "> ";
 	cin.get(link, 180);
 	cin.get();
+	links[i] = new char[180];
 	strcpy(links[i], link);
       }
       success = table->add(term, description, amount, links);

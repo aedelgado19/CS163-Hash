@@ -14,6 +14,7 @@ struct node {
   char* name;
   char* description;
   char** links;
+  int amount;
   node* next;
 };
 
