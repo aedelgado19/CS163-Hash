@@ -37,7 +37,7 @@ public:
   int load(char* file_name);
 
   //task 7: add a new website link to an existing term
-  int add_website(char* term, int amount, char** links);
+  int add_website(char* term,  char* link);
 
   //task 8: remove by keyword
   int remove_by_key(char* term);

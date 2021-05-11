@@ -102,22 +102,11 @@ int main(){
       cout << "> ";
       cin.get(term, 40);
       cin.get();
-      cout << "How many websites will you be adding?" << endl;
+      cout << "Enter your link." << endl;
       cout << "> ";
-      cin >> amount;
+      cin.get(link, LINK_LEN);
       cin.get();
-
-      //make array of size amount
-      char* links[amount];
-      for(int i = 0; i < amount; i++){ //populate links array
-	cout << "Enter your link: " << endl;
-	cout << "> ";
-	cin.get(link, 180);
-	cin.get();
-	links[i] = new char[180];
-	strcpy(links[i], link);
-      }
-      success = table->add_website(term, amount, links);
+      success = table->add_website(term, link);
       print_error_messages(success, "addweb");
 
     }
@@ -128,7 +117,7 @@ int main(){
       cin.get(term, 40);
       cin.get();
       success = table->remove_by_key(term);
-      print_error_messages(success, "addweb");
+      print_error_messages(success, "remove");
     }
   }
   cout << "Goodbye!" << endl;
@@ -146,7 +135,11 @@ void print_error_messages(int success, const char function_name[]){
       cout << " " << endl;
     }
     if(strcmp(function_name, "addweb") == 0){
-      cout << "Websites added successfully." << endl;
+      cout << "Website added successfully." << endl;
+      cout << " " << endl;
+    }
+    if(strcmp(function_name, "remove") == 0){
+      cout << "Term removed successfully." << endl;
       cout << " " << endl;
     }
   } else {
@@ -158,5 +151,10 @@ void print_error_messages(int success, const char function_name[]){
       cout << "Could not find the file you were looking for." << endl;
       cout << " " << endl;
     }
+    if(strcmp(function_name, "remove") == 0){
+      cout << "Could not find the term you were looking for." << endl;
+      cout << " " << endl;
+    }
   }
 }
+

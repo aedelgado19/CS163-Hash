@@ -196,9 +196,52 @@ int hash_table::load(char* file_name){
    It takes in the term you would like to add to, and the links
    to add. Returns 0 if it could not find the existing node.
    Returns 1 if successful. */
-int hash_table::add_website(char* term, int amount, char** links){
-
-  return 0;
+int hash_table::add_website(char* term, char* link){
+  int index = hash_two(term);
+  if(!table[index]) return 0;
+  node* current = table[index];
+  char** new_array = new char*[current->amount + 1];
+  
+  //locate the correct node
+  if(strcmp(current->name, term) != 0){ //first node is NOT a match
+    std::cout << "not the first one" << std::endl;
+    while(current->next != NULL){
+      current = current->next;
+      if(strcmp(current->name, term) == 0){
+	//copy over contents of the original array
+	for(int i = 0; i < current->amount; i++){
+	  new_array[i] = new char[strlen(current->links[i])];
+	  strcpy(new_array[i], current->links[i]);
+	  delete [] current->links[i];
+	}
+  
+	//copy over new website link
+	new_array[current->amount + 1] = new char[strlen(link) + 1];
+	strcpy(new_array[current->amount + 1], link);
+	current->amount++;
+	delete [] current->links;
+	current->links = new_array;
+	return 1;
+      }
+    }  
+  } else { //first node IS a match
+    //copy over contents of the original array
+    std::cout << "is the first one" << std::endl;
+    for(int i = 0; i < current->amount; i++){
+      new_array[i] = new char[strlen(current->links[i])];
+      strcpy(new_array[i], current->links[i]);
+      delete [] current->links[i];
+    }
+  
+    //copy over new website link
+    new_array[current->amount + 1] = new char[strlen(link) + 1];
+    strcpy(new_array[current->amount + 1], link);
+    current->amount++;
+    delete [] current->links;
+    current->links = new_array;
+    return 1;
+  }
+  return 0; //couldn't find term
 }
 
 /* a function to remove by keyword.
@@ -211,27 +254,34 @@ int hash_table::remove_by_key(char* term){
   int i = hash_two(term);
   node* current = NULL;
   node* prev = NULL;
-  
+
   if(!table[i]) return 0; //nothing matches that term's key
   current = table[i];
-  if(strcmp(current->name, term) == 0){ //CASE 1: found a match with the head ptr
+
+  //CASE 1: found a match with the head pointer
+  if(strcmp(current->name, term) == 0){
     table[i] = current->next;
+    delete [] current->links;
+    current->links = NULL;
     delete current;
+    table[i] = NULL;
     return 1;
   }
+  
   //CASE 2: it's not the head, so search chain for a match.
   while(current->next != NULL){
+    prev = current;
+    current = current->next;
     if(strcmp(current->name, term) == 0){
       prev->next = current->next;
       node* hold = current;
       current = current->next;
+      delete [] hold->links;
+      hold->links = NULL;
       delete hold;
       return 1;
     }
-    prev = current;
-    current = current->next;
   }
-  
   return 0; //did not find any matches
 }
 
