@@ -9,6 +9,7 @@
 #include <cstring>
 #include <cmath>
 #include "table.h"
+#include <fstream>
 #define LINK_LEN 180
 
 /* The constructor initializes the table size 
@@ -56,7 +57,7 @@ int hash_table::hash_one(char* key){
   int count = 0;
 
   //multiply together all the letters in the key
-  for(int i = 0; i < strlen(key); i++){
+  for(int i = 0; i < (int) strlen(key); i++){
     to_return *= (int) key[i];
     count++;
   }
@@ -76,7 +77,7 @@ int hash_table::hash_two(char* key){
   int to_return = 0;
 
   //square each letter and add results together
-  for(int i = 0; i < strlen(key); i++){
+  for(int i = 0; i < (int) strlen(key); i++){
     to_return += pow(key[i], 2);
   }
 
@@ -168,22 +169,70 @@ int hash_table::display(char* key){
   return 0; //did not find any matches
 }
 
-/* load information from an external data file */
+/* a function to load information from an external data file.
+   It takes in the name of the file, searches for it in the
+   directory. If it found the correct file, it tokenizes the text,
+   creating new nodes for each term in the file.
+   Returns 0 if it could not find the file.
+ */
 int hash_table::load(char* file_name){
+  std::ifstream file;
+  file.open(file_name);
+  char* char_ptr = NULL;
+  
+  //if it does not exist return 0
+  if(!file){
+    return 0;
+  }
+
+  //tokenize text into parts
+  //  for(int i = 0; i < 
+  //char_ptr = strtok(
+  
+  return 0;
+}
+
+/* a function to add a new website link to an existing term.
+   It takes in the term you would like to add to, and the links
+   to add. Returns 0 if it could not find the existing node.
+   Returns 1 if successful. */
+int hash_table::add_website(char* term, int amount, char** links){
 
   return 0;
 }
 
-/* add a new website link to an existing term */
-int hash_table::add_website(char* term, char** links){
-
-  return 0;
-}
-
-/* remove by keyword */
+/* a function to remove by keyword.
+   It is supplied the term from main, plugs it into the hash
+   function, then searches for the term at that array index.
+   A 0 is returned if the function could not find that term, 
+   and a 1 is returned if it was successful in removing it.*/
 int hash_table::remove_by_key(char* term){
-
-  return 0;
+  if(!table) return 0;
+  int i = hash_two(term);
+  node* current = NULL;
+  node* prev = NULL;
+  
+  if(!table[i]) return 0; //nothing matches that term's key
+  current = table[i];
+  if(strcmp(current->name, term) == 0){ //CASE 1: found a match with the head ptr
+    table[i] = current->next;
+    delete current;
+    return 1;
+  }
+  //CASE 2: it's not the head, so search chain for a match.
+  while(current->next != NULL){
+    if(strcmp(current->name, term) == 0){
+      prev->next = current->next;
+      node* hold = current;
+      current = current->next;
+      delete hold;
+      return 1;
+    }
+    prev = current;
+    current = current->next;
+  }
+  
+  return 0; //did not find any matches
 }
 
 /* retrieve information about a matching term */
