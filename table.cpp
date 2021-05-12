@@ -118,7 +118,7 @@ int hash_table::add(char* term, char* description, int amount, char** links){
     new_node->next = NULL;
     return 1;
   }
-
+  
   //if the index is not null, chain it on
   node* traverse = table[index];
   while(traverse->next != NULL){
@@ -179,16 +179,17 @@ int hash_table::load(char* file_name){
   std::ifstream file;
   file.open(file_name);
   char* char_ptr = NULL;
+  char line[LINK_LEN];
   
   //if it does not exist return 0
   if(!file){
     return 0;
   }
-
-  //tokenize text into parts
-  //  for(int i = 0; i < 
-  //char_ptr = strtok(
   
+  while(file >> line){
+    
+    
+  }
   return 0;
 }
 

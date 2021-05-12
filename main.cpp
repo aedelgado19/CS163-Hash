@@ -86,9 +86,6 @@ int main(){
     //load from external data file
     if(strcmp(input, "load") == 0){
       cout << "Enter the name of the external data file." << endl;
-      cout << "Note that for this program, the data file must be structured in this way: " << endl;
-      cout << "Term / description / amount of links" << endl;
-      cout << "followed by each link on a new line." << endl;
       cout << "> ";
       cin.get(file, 250);
       cin.get();
