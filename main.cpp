@@ -79,6 +79,9 @@ int main(){
       cout << "> ";
       cin.get(term, 40);
       cin.get();
+      for(int i = 0; i < (int) strlen(term); i++){
+	term[i] = (int) tolower(term[i]);
+      }
       success = table->display(term);
       print_error_messages(success, "search");
     }

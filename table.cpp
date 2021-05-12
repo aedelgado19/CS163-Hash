@@ -189,22 +189,27 @@ int hash_table::load(char* file_name){
   if(!file){
     return 0;
   }
+
+  //loop through whole file and read it in
   while(!file.eof()){
+    //allocate memory
     node* new_node = new node;
     new_node->name = new char[40];
     new_node->description = new char[250];
-    file.getline(line, MAX);
+    file.getline(line, MAX); //term
     strcpy(new_node->name, line);
-    file.getline(line, MAX);
+    file.getline(line, MAX); //desc
     strcpy(new_node->description, line);
-    file.getline(line, MAX);
+    file.getline(line, MAX); //amount
     new_node->amount = atoi(line);
     char** new_array = new char*[new_node->amount];
     for(int j = 0; j < new_node->amount; j++){
-      new_array[j] = new char[strlen(new_node->links[j])];
+      new_array[j] = new char[LINK_LEN];
       file.getline(line, MAX);
       strcpy(new_array[j], line);
     }
+    int index = hash_two(new_node->name);
+    table[index] = new_node;
     return 1;
   }
   return 0; 
