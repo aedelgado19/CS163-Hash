@@ -1,10 +1,9 @@
 Video Streaming
 a website where you can watch shows and videos
-11
+10
 https://www.youtube.com
 https://www.netflix.com/
 https://www.disneyplus.com/
-https://www.hulu.com/
 https://www.hulu.com/
 https://www.floatplane.com/
 https://www.crunchyroll.com

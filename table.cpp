@@ -3,14 +3,16 @@
    table.cpp contains all the member functions used
    to create a hash table ADT
 
-   Last updated: May 7
+   Last updated: May 11
  */
 #include <iostream>
 #include <cstring>
+#include <string>
 #include <cmath>
 #include "table.h"
 #include <fstream>
 #define LINK_LEN 180
+#define MAX 500
 
 /* The constructor initializes the table size 
    and initializes every index in the table to null. 
@@ -170,27 +172,40 @@ int hash_table::display(char* key){
 }
 
 /* a function to load information from an external data file.
-   It takes in the name of the file, searches for it in the
-   directory. If it found the correct file, it tokenizes the text,
-   creating new nodes for each term in the file.
+   a text file for this program must be structured as follows:
+      term name
+      description
+      amount of website links
+      website links separated by a newline
+
    Returns 0 if it could not find the file.
  */
 int hash_table::load(char* file_name){
   std::ifstream file;
   file.open(file_name);
-  char* char_ptr = NULL;
   char line[LINK_LEN];
   
   //if it does not exist return 0
   if(!file){
     return 0;
   }
-  
-  while(file >> line){
-    
-    
+  while(!file.eof()){
+    node* new_node = new node;
+    file.getline(line, MAX);
+    strcpy(new_node->name, line);
+    file.getline(line, MAX);
+    strcpy(new_node->description, line);
+    file.getline(line, MAX);
+    new_node->amount = atoi(line);
+    char** new_array = new char*[new_node->amount];
+    for(int j = 0; j < new_node->amount; j++){
+      new_array[j] = new char[strlen(new_node->links[j])];
+      file.getline(line, MAX);
+      strcpy(new_array[j], line);
+    }
+    return 1;
   }
-  return 0;
+  return 0; 
 }
 
 /* a function to add a new website link to an existing term.
