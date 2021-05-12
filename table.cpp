@@ -191,6 +191,8 @@ int hash_table::load(char* file_name){
   }
   while(!file.eof()){
     node* new_node = new node;
+    new_node->name = new char[40];
+    new_node->description = new char[250];
     file.getline(line, MAX);
     strcpy(new_node->name, line);
     file.getline(line, MAX);
