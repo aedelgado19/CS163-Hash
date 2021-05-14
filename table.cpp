@@ -392,8 +392,9 @@ int hash_table::remove_by_link(char* link){
   //loop through the whole table
   for(int i = 0; i < TABLE_SIZE; i++){
     current = table[i];
-    if(current){ //if there's something there in that index
-      //check the head node's links
+    while(current){ //if there's something there in that index
+
+      //loop through the links
       for(int j = 0; j < current->amount; j++){
 	if(current->links[j]){
 	  if(strcmp(current->links[j], link) == 0){ //if you find a matching link
@@ -404,21 +405,7 @@ int hash_table::remove_by_link(char* link){
 	    }
 	  }
 	}
-      }
-      //now traverse the chain to find any more links
-      while(current->next != NULL){
-	//check all the links
-	for(int j = 0; j < current->amount; j++){
-	  if(current->links[j]){
-	    if(strcmp(current->links[j], link) == 0){
-	      flag = true;
-	      delete current->links[j];
-	      for(int k = j; k < current->amount; k++){
-		current->links[k] = current->links[k+1]; // shift them all down one
-	      }
-	    }
-	  }
-	}	
+	current = current->next;
       }
     }
   }
