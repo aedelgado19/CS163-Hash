@@ -387,26 +387,37 @@ int hash_table::retrieve(char* term, char*& desc, char**& links, int & amount){
 int hash_table::remove_by_link(char* link){
   if(!table) return 0;
   node* current = NULL;
+  node* prev = NULL;
+  node* temp = NULL;
   bool flag = false;
-
+  bool deleted = false;
+  
   //loop through the whole table
   for(int i = 0; i < TABLE_SIZE; i++){
+    prev = NULL;
     current = table[i];
     while(current){ //if there's something there in that index
-
+      deleted = false;
+      temp = current->next;
       //loop through the links
       for(int j = 0; j < current->amount; j++){
-	if(current->links[j]){
-	  if(strcmp(current->links[j], link) == 0){ //if you find a matching link
-	    flag = true;
-	    delete current->links[j];
-	    for(int k = j; k < current->amount; k++){
-	    current->links[k] = current->links[k+1]; // shift them all down one
-	    }
+	if(strcmp(current->links[j], link) == 0){ //if you find a matching link
+	  flag = true;
+	  deleted = true;
+	  delete current;
+	  current = NULL;
+	  if(prev){ //if previous isn't null, it's next is temp
+	    prev->next = temp;
+	  } else {
+	    table[i] = temp;
 	  }
+	  break;
 	}
-	current = current->next;
       }
+      if(deleted == false){
+	prev = current;
+      }
+      current = temp;
     }
   }
   if(flag == false){
