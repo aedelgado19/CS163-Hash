@@ -309,8 +309,26 @@ int hash_table::remove_by_key(char* term){
    the matching info back to main through the argument list. 
    To find the info to retrieve, it looks at the hashed index
    of the provided term. If it cannot find anything, it returns 0.*/
-int hash_table::retrieve(char* term, char* to_return[]){
+int hash_table::retrieve(char* term, char*& to_return){
+  if(!table) return 0;
+  int i = hash_two(term);
+  if(!table[i]) return 0; //nothing was found at that index
+  node* current = table[i];
   
+  //check the first term
+  if(strcmp(term, current->name) == 0){
+    
+    return 1;
+  }
+  
+  //check its chain
+  while(current->next != NULL){
+    current = current->next;
+    if(strcmp(term, current->name) == 0){
+
+      return 1;
+    }
+  }
   
   return 0;
 }
@@ -320,8 +338,43 @@ int hash_table::retrieve(char* term, char* to_return[]){
    use the hash on it if no term is provided. Returns 0 if the link
    could not be found, and 1 if successful.*/
 int hash_table::remove_by_link(char* link){
-  
-  return 0;
+  if(!table) return 0;
+  node* current = NULL;
+  bool flag = false;
+
+  //loop through the whole table
+  for(int i = 0; i < TABLE_SIZE; i++){
+    current = table[i];
+    if(current){ //if there's something there in that index
+      //check the head node's links
+      for(int j = 0; j < current->amount; j++){
+	if(strcmp(current->links[j], link) == 0){ //if you find a matching link
+	  flag = true;
+	  delete current->links[j];
+	  for(int k = j; k < current->amount; k++){
+	    current->links[k] = current->links[k+1]; // shift them all down one
+	  }
+	}
+      }
+      //now traverse the chain to find any more links
+      while(current->next != NULL){
+	//check all the links
+	for(int j = 0; j < current->amount; j++){
+	  if(strcmp(current->links[j], link) == 0){
+	    flag = true;
+	    delete current->links[j];
+	    for(int k = j; k < current->amount; k++){
+	      current->links[k] = current->links[k+1]; // shift them all down one
+	    }
+	  }
+	}	
+      }
+    }
+  }
+  if(flag == false){
+    return 0; //couldn't find a match
+  }
+  return 1;
 }
 
 /* this is a function I wrote (not required) that prints out the entire

@@ -33,7 +33,9 @@ int main(){
     cout << "search - display the information for a term" << endl;
     cout << "load - load the information from an external data file" << endl;
     cout << "addweb - add a new website link to an existing term" << endl;
-    cout << "remove - remove by keyword" << endl;
+    cout << "rmk - remove by keyword" << endl;
+    cout << "retrieve - retrieve info about a specific term" << endl;
+    cout << "rml - remove all terms containing a specific link" << endl;
     cout << "q - quit" << endl;
     cout << " " << endl;
     cout << "> ";
@@ -111,13 +113,34 @@ int main(){
 
     }
     //remove by keyword
-    if(strcmp(input, "remove") == 0){
+    if(strcmp(input, "rmk") == 0){
       cout << "Enter the term you would like to remove." << endl;
       cout << "> ";
       cin.get(term, 40);
       cin.get();
       success = table->remove_by_key(term);
-      print_error_messages(success, "remove");
+      print_error_messages(success, "rmkey");
+    }
+
+    //remove all containing a certain link
+    if(strcmp(input, "rml") == 0){
+      cout << "Enter the link you would like to remove from all terms." << endl;
+      cout << "> ";
+      cin.get(link, LINK_LEN);
+      cin.get();
+      success = table->remove_by_link(link);
+      print_error_messages(success, "rmlink");  
+    }
+
+    //show all information about a term
+    if(strcmp(input, "retrieve") == 0){
+      char* to_return = new char[250];
+      cout << "Enter the term you would like to search for." << endl;
+      cout << "> ";
+      cin.get(term, 40);
+      cin.get();
+      success = table->retrieve(term, to_return);
+      print_error_messages(success, "retrieve");
     }
 
     //function (not required) that I made for debugging. prints out the whole table
@@ -143,8 +166,12 @@ void print_error_messages(int success, const char function_name[]){
       cout << "Website added successfully." << endl;
       cout << " " << endl;
     }
-    if(strcmp(function_name, "remove") == 0){
+    if(strcmp(function_name, "rmkey") == 0){
       cout << "Term removed successfully." << endl;
+      cout << " " << endl;
+    }
+    if(strcmp(function_name, "rmlink") == 0){
+      cout << "All terms containing that link were removed successfully." << endl;
       cout << " " << endl;
     }
   } else {
@@ -156,9 +183,16 @@ void print_error_messages(int success, const char function_name[]){
       cout << "Could not find the file you were looking for." << endl;
       cout << " " << endl;
     }
-    if(strcmp(function_name, "remove") == 0){
+    if(strcmp(function_name, "rmkey") == 0){
       cout << "Could not find the term you were looking for." << endl;
       cout << " " << endl;
+    }
+    if(strcmp(function_name, "rmlink") == 0){
+      cout << "Could not find the link you were looking for." << endl;
+      cout << " " << endl;
+    }
+    if(strcmp(function_name, "retrieve") == 0){
+      cout << "Nothing could be found for that term." << endl;
     }
   }
 }

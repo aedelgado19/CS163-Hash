@@ -43,7 +43,7 @@ public:
   int remove_by_key(char* term);
 
   //task 9: retrieve info about a matching term       
-  int retrieve(char* term, char* to_return[]);
+  int retrieve(char* term, char*& to_return);
 
   //task 10: remove all that contain a specific link
   int remove_by_link(char* link);
