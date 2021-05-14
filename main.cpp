@@ -132,13 +132,21 @@ int main(){
 
     //show all information about a term
     if(strcmp(input, "retrieve") == 0){
-      char* to_return = new char[250];
+      char* d = new char[250]; //place to hold description
+      char** l = new char*[LINK_LEN]; //place to hold links
+      int a = 0; //place to hold amount of links
       cout << "Enter the term you would like to search for." << endl;
       cout << "> ";
       cin.get(term, 40);
       cin.get();
-      success = table->retrieve(term, to_return);
+      success = table->retrieve(term, d, l, a);
       print_error_messages(success, "retrieve");
+      cout << "Info for " << term << ": " << endl;
+      cout << " description: " << d << endl;
+      cout << "  links: " << endl;
+      for(int i = 0; i < a; i++){
+	cout << "    link #" << i+1 << ": " << l[i] << endl;
+      }
     }
 
     //function (not required) that I made for debugging. prints out the whole table

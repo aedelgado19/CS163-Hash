@@ -235,6 +235,7 @@ int hash_table::load(char* file_name){
     }
   }
   return 1;
+
 }
 
 /* a function to add a new website link to an existing term.
@@ -249,19 +250,19 @@ int hash_table::add_website(char* term, char* link){
   
   //locate the correct node
   if(strcmp(current->name, term) != 0){ //first node is NOT a match
-    while(current->next != NULL){
+    while(current->next){
       current = current->next;
       if(strcmp(current->name, term) == 0){
 	//copy over contents of the original array
 	for(int i = 0; i < current->amount; i++){
-	  new_array[i] = new char[strlen(current->links[i])];
+	  new_array[i] = new char[strlen(current->links[i]) + 1];
 	  strcpy(new_array[i], current->links[i]);
 	  delete [] current->links[i];
 	}
   
 	//copy over new website link
-	new_array[current->amount + 1] = new char[strlen(link) + 1];
-	strcpy(new_array[current->amount + 1], link);
+	new_array[current->amount] = new char[strlen(link) + 1];
+	strcpy(new_array[current->amount], link);
 	current->amount++;
 	delete [] current->links;
 	current->links = new_array;
@@ -271,14 +272,14 @@ int hash_table::add_website(char* term, char* link){
   } else { //first node IS a match
     //copy over contents of the original array
     for(int i = 0; i < current->amount; i++){
-      new_array[i] = new char[strlen(current->links[i])];
+      new_array[i] = new char[strlen(current->links[i]) + 1];
       strcpy(new_array[i], current->links[i]);
       delete [] current->links[i];
     }
   
     //copy over new website link
-    new_array[current->amount + 1] = new char[strlen(link) + 1];
-    strcpy(new_array[current->amount + 1], link);
+    new_array[current->amount] = new char[strlen(link) + 1];
+    strcpy(new_array[current->amount], link);
     current->amount++;
     delete [] current->links;
     current->links = new_array;
@@ -332,7 +333,7 @@ int hash_table::remove_by_key(char* term){
    the matching info back to main through the argument list. 
    To find the info to retrieve, it looks at the hashed index
    of the provided term. If it cannot find anything, it returns 0.*/
-int hash_table::retrieve(char* term, char*& to_return){
+int hash_table::retrieve(char* term, char*& desc, char**& links, int & amount){
   if(!table) return 0;
   int i = hash_two(term);
   if(!table[i]) return 0; //nothing was found at that index
@@ -340,7 +341,11 @@ int hash_table::retrieve(char* term, char*& to_return){
   
   //check the first term
   if(strcmp(term, current->name) == 0){
-    
+    strcpy(desc, current->description);
+    amount = current->amount;
+    for(int j = 0; j < current->amount; j++){
+      links[j] = current->links[j];
+    }
     return 1;
   }
   
@@ -348,7 +353,11 @@ int hash_table::retrieve(char* term, char*& to_return){
   while(current->next != NULL){
     current = current->next;
     if(strcmp(term, current->name) == 0){
-
+      strcpy(desc, current->description);
+      amount = current->amount;
+      for(int j = 0; j < current->amount; j++){
+	links[j] = current->links[j];
+      }
       return 1;
     }
   }
