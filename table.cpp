@@ -150,10 +150,11 @@ int hash_table::display(char* key){
     std::cout << "links: " << std::endl;
     if(current->links[0] == NULL){
       std::cout << "   you deleted all the links." << std::endl;
-    }
-    for(int j = 0; j < current->amount; j++){
-      if(current->links[j]){
-	std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+    } else {
+      for(int j = 0; j < current->amount; j++){
+	if(current->links[j]){
+	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	}
       }
     }
     return 1;
@@ -168,10 +169,11 @@ int hash_table::display(char* key){
       std::cout << "links: " << std::endl;
       if(current->links[0] == NULL){
 	std::cout << "   you deleted all the links." << std::endl;
-      }
-      for(int j = 0; j < current->amount; j++){
-	if(current->links[j]){
-	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+      } else {
+	for(int j = 0; j < current->amount; j++){
+	  if(current->links[j]){
+	    std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	  }
 	}
       }
       return 1;
@@ -198,7 +200,7 @@ int hash_table::load(char* file_name){
   if(!file){
     return 0;
   }
-
+  
   //loop through whole file and read it in
   while(!file.eof()){
     //allocate memory
@@ -230,10 +232,9 @@ int hash_table::load(char* file_name){
       }
       current->next = new_node;
       new_node->next = NULL;
-    }    
-    return 1;
+    }
   }
-  return 0; 
+  return 1;
 }
 
 /* a function to add a new website link to an existing term.

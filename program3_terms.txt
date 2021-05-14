@@ -61,7 +61,7 @@ an online multiplayer game made by Blizzard entertainment
 http://www.worldofwarcraft.com
 http://www.wowhead.com
 https://us.shop.battle.net/en-us/family/world-of-warcraft
-service Uutilities
+service utilities
 service provers for home utilities
 6
 https://my.xfinity.com/
