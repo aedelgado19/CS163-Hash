@@ -209,8 +209,19 @@ int hash_table::load(char* file_name){
     new_node->description = new char[250];
     file.getline(line, MAX); //term
     strcpy(new_node->name, line);
+
+    //fix the /r character that's automatically added
+    if(new_node->name[strlen(new_node->name) - 1] == '\r'){
+      new_node->name[strlen(new_node->name) - 1] = '\0';
+    }
+
     file.getline(line, MAX); //desc
     strcpy(new_node->description, line);
+    //fix the /r character that's automatically added
+    if(new_node->name[strlen(new_node->name) - 1] == '\r'){
+      new_node->name[strlen(new_node->name) - 1] = '\0';
+    }
+
     file.getline(line, MAX); //amount
     new_node->amount = atoi(line);
     char** new_array = new char*[new_node->amount]; //links
@@ -218,6 +229,10 @@ int hash_table::load(char* file_name){
       new_array[j] = new char[LINK_LEN];
       file.getline(line, MAX);
       strcpy(new_array[j], line);
+      //fix the /r character that's automatically added
+      if(new_node->name[strlen(new_node->name) - 1] == '\r'){
+	new_node->name[strlen(new_node->name) - 1] = '\0';
+      }
     }
     new_node->links = new_array;
     int index = hash_two(new_node->name);
