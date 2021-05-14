@@ -348,11 +348,13 @@ int hash_table::remove_by_link(char* link){
     if(current){ //if there's something there in that index
       //check the head node's links
       for(int j = 0; j < current->amount; j++){
-	if(strcmp(current->links[j], link) == 0){ //if you find a matching link
-	  flag = true;
-	  delete current->links[j];
-	  for(int k = j; k < current->amount; k++){
+	if(current->links[j]){
+	  if(strcmp(current->links[j], link) == 0){ //if you find a matching link
+	    flag = true;
+	    delete current->links[j];
+	    for(int k = j; k < current->amount; k++){
 	    current->links[k] = current->links[k+1]; // shift them all down one
+	    }
 	  }
 	}
       }
@@ -360,11 +362,13 @@ int hash_table::remove_by_link(char* link){
       while(current->next != NULL){
 	//check all the links
 	for(int j = 0; j < current->amount; j++){
-	  if(strcmp(current->links[j], link) == 0){
-	    flag = true;
-	    delete current->links[j];
-	    for(int k = j; k < current->amount; k++){
-	      current->links[k] = current->links[k+1]; // shift them all down one
+	  if(current->links[j]){
+	    if(strcmp(current->links[j], link) == 0){
+	      flag = true;
+	      delete current->links[j];
+	      for(int k = j; k < current->amount; k++){
+		current->links[k] = current->links[k+1]; // shift them all down one
+	      }
 	    }
 	  }
 	}	
