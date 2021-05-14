@@ -148,8 +148,13 @@ int hash_table::display(char* key){
     std::cout << "term: " << current->name << std::endl;
     std::cout << "description: " << current->description << std::endl;
     std::cout << "links: " << std::endl;
+    if(current->links[0] == NULL){
+      std::cout << "   you deleted all the links." << std::endl;
+    }
     for(int j = 0; j < current->amount; j++){
-      std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+      if(current->links[j]){
+	std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+      }
     }
     return 1;
   }
@@ -161,8 +166,13 @@ int hash_table::display(char* key){
       std::cout << "term: " << current->name << std::endl;
       std::cout << "description: " << current->description << std::endl;
       std::cout << "links: " << std::endl;
+      if(current->links[0] == NULL){
+	std::cout << "   you deleted all the links." << std::endl;
+      }
       for(int j = 0; j < current->amount; j++){
-	std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	if(current->links[j]){
+	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	}
       }
       return 1;
     }
@@ -397,8 +407,14 @@ int hash_table::print(){
       std::cout << "term: " << current->name << std::endl;
       std::cout << "description: " << current->description << std::endl;
       std::cout << "links: " << std::endl;
+      if(current->links[0] == NULL){
+	std::cout << "   you deleted all the links." << std::endl;
+      }
       for(int j = 0; j < current->amount; j++){
-	std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	if(current->links[j]){
+	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	}
+
       }
 
       //check chain
@@ -409,8 +425,13 @@ int hash_table::print(){
 	std::cout << "term: " << current->name << std::endl;
 	std::cout << "description: " << current->description << std::endl;
 	std::cout << "links: " << std::endl;
+	if(current->links[0] == NULL){
+	  std::cout << "   you deleted all the links." << std::endl;
+	}
 	for(int j = 0; j < current->amount; j++){
-	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	  if(current->links[j]){
+	    std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	  }
 	}
       }
     }

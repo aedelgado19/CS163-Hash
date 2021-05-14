@@ -28,7 +28,7 @@ int main(){
   cout << "Welcome to Term Search." << endl;
   while(strcmp(input, "q") != 0){
     cout << "---------------------------------" << endl;
-    cout << "Valid commands (for submission 3) are: " << endl;
+    cout << "Valid commands are: " << endl;
     cout << "add - add a new term, its description, and its links" << endl;
     cout << "search - display the information for a term" << endl;
     cout << "load - load the information from an external data file" << endl;
