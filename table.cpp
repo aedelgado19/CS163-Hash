@@ -211,12 +211,13 @@ int hash_table::load(char* file_name){
     strcpy(new_node->description, line);
     file.getline(line, MAX); //amount
     new_node->amount = atoi(line);
-    char** new_array = new char*[new_node->amount];
+    char** new_array = new char*[new_node->amount]; //links
     for(int j = 0; j < new_node->amount; j++){
       new_array[j] = new char[LINK_LEN];
       file.getline(line, MAX);
       strcpy(new_array[j], line);
     }
+    new_node->links = new_array;
     int index = hash_two(new_node->name);
 
     if(!table[index]){
@@ -418,14 +419,14 @@ int hash_table::print(){
       std::cout << "term: " << current->name << std::endl;
       std::cout << "description: " << current->description << std::endl;
       std::cout << "links: " << std::endl;
-      if(current->links[0] == NULL){
+      if(current->links == NULL){
 	std::cout << "   you deleted all the links." << std::endl;
-      }
-      for(int j = 0; j < current->amount; j++){
-	if(current->links[j]){
-	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+      } else {
+	for(int j = 0; j < current->amount; j++){
+	  if(current->links[j]){
+	    std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	  }
 	}
-
       }
 
       //check chain
@@ -436,12 +437,13 @@ int hash_table::print(){
 	std::cout << "term: " << current->name << std::endl;
 	std::cout << "description: " << current->description << std::endl;
 	std::cout << "links: " << std::endl;
-	if(current->links[0] == NULL){
+	if(current->links == NULL){
 	  std::cout << "   you deleted all the links." << std::endl;
-	}
-	for(int j = 0; j < current->amount; j++){
-	  if(current->links[j]){
-	    std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	} else {
+	  for(int j = 0; j < current->amount; j++){
+	    if(current->links[j]){
+	      std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	    }
 	  }
 	}
       }

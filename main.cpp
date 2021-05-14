@@ -78,12 +78,10 @@ int main(){
     //search calls the display function in the table class
     if(strcmp(input, "search") == 0){
       cout << "Enter the term you would like to search for. " << endl;
+      cout << "(Make sure you get the capitalization right)" << endl;
       cout << "> ";
       cin.get(term, 40);
       cin.get();
-      for(int i = 0; i < (int) strlen(term); i++){
-	term[i] = (int) tolower(term[i]);
-      }
       success = table->display(term);
       print_error_messages(success, "search");
     }
