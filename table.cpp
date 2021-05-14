@@ -218,7 +218,18 @@ int hash_table::load(char* file_name){
       strcpy(new_array[j], line);
     }
     int index = hash_two(new_node->name);
-    table[index] = new_node;
+
+    if(!table[index]){
+      table[index] = new_node;
+      new_node->next = NULL;
+    } else {
+      node* current = table[index];
+      while(current->next){
+	current = current->next;
+      }
+      current->next = new_node;
+      new_node->next = NULL;
+    }    
     return 1;
   }
   return 0; 
