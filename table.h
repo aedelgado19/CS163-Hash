@@ -48,6 +48,10 @@ public:
   //task 10: remove all that contain a specific link
   int remove_by_link(char* link);
 
+  //a function (not required for this project) that I wrote
+  //to display the whole table
+  int print();
+  
 private:
   //task 3: hash functions (each is different)
   int hash_one(char* key);

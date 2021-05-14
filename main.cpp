@@ -119,6 +119,11 @@ int main(){
       success = table->remove_by_key(term);
       print_error_messages(success, "remove");
     }
+
+    //function (not required) that I made for debugging. prints out the whole table
+    if(strcmp(input, "print") == 0){
+      table->print();
+    }
   }
   cout << "Goodbye!" << endl;
   return 0;

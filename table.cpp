@@ -13,6 +13,7 @@
 #include <fstream>
 #define LINK_LEN 180
 #define MAX 500
+#define TABLE_SIZE 5
 
 /* The constructor initializes the table size 
    and initializes every index in the table to null. 
@@ -323,3 +324,39 @@ int hash_table::remove_by_link(char* link){
   return 0;
 }
 
+/* this is a function I wrote (not required) that prints out the entire
+   table. I use it for debugging, but it is not essential for the
+   functionality of the ADT */
+int hash_table::print(){
+  if(!table) return 0;
+  node* current = NULL;
+  
+  for(int i = 0; i < TABLE_SIZE; i++){
+    current = table[i];
+    if(current){ //if there's something there  
+      //print out the first term:
+      std::cout << " " << std::endl;
+      std::cout << "index: " << i << std::endl;
+      std::cout << "term: " << current->name << std::endl;
+      std::cout << "description: " << current->description << std::endl;
+      std::cout << "links: " << std::endl;
+      for(int j = 0; j < current->amount; j++){
+	std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+      }
+
+      //check chain
+      while(current->next != NULL){
+	current = current->next;
+	std::cout << " " << std::endl;
+	std::cout << "index: " << i << std::endl;
+	std::cout << "term: " << current->name << std::endl;
+	std::cout << "description: " << current->description << std::endl;
+	std::cout << "links: " << std::endl;
+	for(int j = 0; j < current->amount; j++){
+	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+	}
+      }
+    }
+  }
+  return 1;
+}
