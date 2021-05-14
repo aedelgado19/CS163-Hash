@@ -137,35 +137,33 @@ int hash_table::add(char* term, char* description, int amount, char** links){
 int hash_table::display(char* key){
   if(!table) return 0;
   node* current = NULL;
-  
-  for(int i = 0; i < table_size; i++){
-    if(table[i] != NULL){ //if there is something there
-      current = table[i];
+  int i = hash_two(key);
+  if(!table[i]) return 0; //nothing was found at that index
 
-      //if you find a match with the first term, print it out
-      if(strcmp(current->name, key) == 0){
-	std::cout << "term: " << current->name << std::endl;
-	std::cout << "description: " << current->description << std::endl;
-	std::cout << "links: " << std::endl;
-	for(int j = 0; j < current->amount; j++){
-	  std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
-	}
-	return 1;
-      }
+  //because the line above returns, the following code only fires if table[i] != NULL
+  current = table[i];
+  //if you find a match with the first term, print it out
+  if(strcmp(current->name, key) == 0){
+    std::cout << "term: " << current->name << std::endl;
+    std::cout << "description: " << current->description << std::endl;
+    std::cout << "links: " << std::endl;
+    for(int j = 0; j < current->amount; j++){
+      std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
+    }
+    return 1;
+  }
 
-      //otherwise traverse the chain
-      while(current->next != NULL){
-	current = current->next;
-	if(strcmp(current->name, key) == 0){ //if you find a match
-	  std::cout << "term: " << current->name << std::endl;
-	  std::cout << "description: " << current->description << std::endl;
-	  std::cout << "links: " << std::endl;
-	  for(int j = 0; j < current->amount; j++){
-	    std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
-	  }
-	  return 1;
-	}
+  //otherwise traverse the chain
+  while(current->next != NULL){
+    current = current->next;
+    if(strcmp(current->name, key) == 0){ //if you find a match
+      std::cout << "term: " << current->name << std::endl;
+      std::cout << "description: " << current->description << std::endl;
+      std::cout << "links: " << std::endl;
+      for(int j = 0; j < current->amount; j++){
+	std::cout << "   Link #" << j+1 << ": " << current->links[j] << std::endl;
       }
+      return 1;
     }
   }
   return 0; //did not find any matches
@@ -227,7 +225,6 @@ int hash_table::add_website(char* term, char* link){
   
   //locate the correct node
   if(strcmp(current->name, term) != 0){ //first node is NOT a match
-    std::cout << "not the first one" << std::endl;
     while(current->next != NULL){
       current = current->next;
       if(strcmp(current->name, term) == 0){
@@ -249,7 +246,6 @@ int hash_table::add_website(char* term, char* link){
     }  
   } else { //first node IS a match
     //copy over contents of the original array
-    std::cout << "is the first one" << std::endl;
     for(int i = 0; i < current->amount; i++){
       new_array[i] = new char[strlen(current->links[i])];
       strcpy(new_array[i], current->links[i]);
@@ -308,14 +304,22 @@ int hash_table::remove_by_key(char* term){
   return 0; //did not find any matches
 }
 
-/* retrieve information about a matching term */
-int hash_table::retrieve(char* term){
-
+/* retrieves information about a matching term. It supplies
+   the matching info back to main through the argument list. 
+   To find the info to retrieve, it looks at the hashed index
+   of the provided term. If it cannot find anything, it returns 0.*/
+int hash_table::retrieve(char* term, char* to_return[]){
+  
+  
   return 0;
 }
 
-/* remove all terms that contain a specific link */
+/* a function to remove all terms that contain a specific link.
+   This function must traverse the whole table (since you cannot
+   use the hash on it if no term is provided. Returns 0 if the link
+   could not be found, and 1 if successful.*/
 int hash_table::remove_by_link(char* link){
-
+  
   return 0;
 }
+
