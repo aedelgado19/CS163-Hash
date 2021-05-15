@@ -155,6 +155,8 @@ int main(){
     }
   }
   cout << "Goodbye!" << endl;
+  delete table;
+  table = NULL;
   return 0;
 }
 

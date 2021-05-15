@@ -36,27 +36,32 @@ hash_table::hash_table(int size){
    */
 hash_table::~hash_table(){
   node* current = NULL;
+  node* hold = NULL;
   
   for(int i = 0; i < table_size; i++){ //walk through array
     current = table[i];
     while(current != NULL){ //walk through chain
-      node* hold = table[i]->next;
+      //      node* hold = table[i]->next;
       for(int j = 0; j < current->amount; j++){
-	delete current->links[j];
+	delete [] current->links[j];
+	current->links[j] = NULL;
       }
-      delete current->links;
-      delete current->description;
-      delete current->name;
+      delete [] current->links;
+      delete [] current->description;
+      delete [] current->name;
       current->links = NULL;
       current->description = NULL;
       current->name = NULL;
-      current->next = NULL;
+      hold = current->next;
       delete current;
       current = hold;
+      //      hold = hold->next;
+      //      current->next = NULL;
     }
-    delete table[i]; //delete the a_node at that index
-    table[i] = NULL; 
+    table[i] = NULL;
   }
+  delete [] table;
+  table = NULL;
 }
 
 /* the first hash function. It takes in a key
@@ -109,10 +114,10 @@ int hash_table::hash_two(char* key){
    if there is a collision.*/
 int hash_table::add(char* term, char* description, int amount, char** links){
   int index = hash_two(term);
-  
+
   //make the new term node
   node* new_node = new node;
-  new_node->name = new char[strlen(description) + 1];
+  new_node->name = new char[strlen(term) + 1];
   strcpy(new_node->name, term);
   new_node->description = new char[strlen(description) + 1];
   strcpy(new_node->description, description);
@@ -121,7 +126,7 @@ int hash_table::add(char* term, char* description, int amount, char** links){
   //copy over link array
   new_node->links = new char*[amount * LINK_LEN];
   for(int i = 0; i < amount; i++){
-    new_node->links[i] = new char[strlen(links[i])];
+    new_node->links[i] = new char[strlen(links[i]) + 1];
     strcpy(new_node->links[i], links[i]);
   }
   
