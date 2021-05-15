@@ -17,12 +17,12 @@ void print_error_messages(int success, const char function_name[]);
 int main(){
   int success = 0;
   hash_table* table = new hash_table(SIZE);
-  char input[20];
-  char term[40];
-  char link[LINK_LEN];
-  char description[250];
+  char input[20] = " ";
+  char term[40] = " ";
+  char link[LINK_LEN] = " ";
+  char description[250] = " ";
   int amount = 0;
-  char file[250];
+  char file[250] = " ";
   
   cout << " " << endl;
   cout << "Welcome to Term Search." << endl;

@@ -41,6 +41,16 @@ hash_table::~hash_table(){
     current = table[i];
     while(current != NULL){ //walk through chain
       node* hold = table[i]->next;
+      for(int j = 0; j < current->amount; j++){
+	delete current->links[j];
+      }
+      delete current->links;
+      delete current->description;
+      delete current->name;
+      current->links = NULL;
+      current->description = NULL;
+      current->name = NULL;
+      current->next = NULL;
       delete current;
       current = hold;
     }
